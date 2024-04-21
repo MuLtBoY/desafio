@@ -54,5 +54,5 @@ interface GatewaysInterface
      * 
      * @return Array ['success', ..., 'gateway_flag']
      */
-    public function gatewayResponse(bool $success, array $middleParamns): array;
+    protected function gatewayResponse(bool $success, array $middleParamns): array;
 }
