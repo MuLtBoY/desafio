@@ -10,7 +10,7 @@ abstract class GatewaysAbstract
     /**
      * Flag gateway name
      */
-    protected static $gatewayFlag;
+    public static $gatewayFlag;
 
     /**
      * Payment status code
