@@ -1,61 +1,41 @@
-Importando o pacote localmente
-=====================
+# Description to package 'desafio'
 
----
-Para ajudar no desenvolvimento, você pode exigir um pacote local em um projeto local do Laravel.
+This package is a integration with payment gateways, standardizing all entries and outputs of data.
 
-Se você tem um projeto Laravel local, você pode requerer seu pacote localmente definindo um _"repositories"_ customizado <br> no composer.json arquivo de sua aplicação Laravel .
+## Prerequisites
 
-Adicione a seguinte chave de _"repositories"_ abaixo da seção "scripts" no composer.json arquivo de seu aplicativo Laravel (substitua o _"url"_ pelo diretório onde seu pacote está):
+The main requirements for using this package have already been referenced in the composer.json file, however it is recommended to use PHP8.1 and LARAVEL10, as tests have not yet been carried out on other versions.
 
-```
-{
-  "scripts": { ... },
+This code using mysql database to save configs. Version MYSQL8.0.36 tested.
 
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../../packages/blogpackage"
-    }
-  ]
-}
-```
+## Instalation
 
-Agora você pode solicitar seu pacote local no aplicativo Laravel usando o namespace escolhido do pacote. Seguindo nosso exemplo, seria:
+1º Require this package by composer
 
+composer require multboy/desafio
 
-`composer require johndoe/blogpackage`
+2º Run migration to create and populate a configuration table
 
-Por padrão, o pacote é adicionado à pasta vendor como um link simbólico, se possível. Se você quiser fazer uma cópia física (ou seja, espelhamento ), adicione o campo `"symlink": false` à optionspropriedade da definição do repositório :
+php artisan migrate
 
-```
-{
-  "scripts": { ... },
+3º For utilization this package, import and instance default gateway as:
 
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../../packages/blogpackage",
-      "options": {
-        "symlink": false
-      }
-    }
-  ]
-}
-```
+<?php
 
-Se você tiver vários pacotes no mesmo diretório e quiser instruir o Composer a procurar por todos eles, pode listar a localização do pacote usando um caractere curinga da *seguinte maneira:
+use multboy\desafio\GatewaysResolve;
 
-```
-{
-  "scripts": { ... },
+$resolver = new GatewaysResolve();
+$current = $test->resolveCurrent('gateway_cielo', true); //true represents devMode (sandbox) to test
 
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../../packages/*"
-    }
-  ]
-}
-```
-Importante: você precisará realizar uma atualização do compositor em seu aplicativo Laravel sempre que fizer alterações no composer.jsonarquivo de seu pacote ou em qualquer provedor que ele registrar.
+$current->cardCreate('5171407457820511', '12', '30', '123', 'Teste Holder'); //tokenize card
+$current->cardCharge(11, 'master', '00555af3-34a1-4e03-acb1-b02443b26a19', '123'); //creates card authorized payment
+$current->cardCharge(15.10, 'master', '00555af3-34a1-4e03-acb1-b02443b26a19', '123', true);//creates card authorized payment and instant capture
+$current->cardCapture('791c7e11-7904-4a22-aaea-9cdf485ea7c1', 11); //captures previously card payment authorized
+
+4º The informations of sandbox Cielo are in https://developercielo.github.io/manual/'?shell#cart%C3%A3o-de-cr%C3%A9dito-em-sandbox, but you can use this:
+
+Card number: 5171407457820511
+Expiration month: 12
+Expiration year: 2030 or 30
+Security code: 123
+Holder name: Teste Holder
