@@ -14,6 +14,8 @@ class GatewaysTest extends TestCase
     {
         $resolver = new GatewaysResolve();
         $current = $resolver->resolveCurrent($resolver::GATEWAY_CIELO, true);
+
+        echo "\n Test Cielo start:";
         $this->testCardCreate($current);
         $this->testCardCharge($current);
         $this->testCardChargeCapture($current);
@@ -33,7 +35,7 @@ class GatewaysTest extends TestCase
             $userData['user_name']
         );
 
-        echo "\n Card create response:";
+        echo "\n\n\n Card create response:";
         var_dump($response);
         $this->assertIsArray($response);
         $this->assertTrue($response['success']);
@@ -41,6 +43,8 @@ class GatewaysTest extends TestCase
 		$this->assertIsString('string', $response['card_type']);
 		$this->assertIsString('string', $response['gateway_flag']);
         echo "\n Card create " . $gateway::$gatewayFlag . " success";
+
+        return $response;
     }
 
     private function testCardCharge(GatewaysInterface $gateway)
@@ -56,7 +60,7 @@ class GatewaysTest extends TestCase
             $cardData['card_cvv']
         );
 
-        echo "\n Card charge response:";
+        echo "\n\n\n Card charge response:";
         var_dump($response);
         $this->assertIsArray($response);
         $this->assertTrue($response['success']);
@@ -64,6 +68,8 @@ class GatewaysTest extends TestCase
 		$this->assertIsString('string', $response['status']);
 		$this->assertIsString('string', $response['gateway_flag']);
         echo "\n Card charge " . $gateway::$gatewayFlag . " success";
+
+        return $response;
     }
 
     private function testCardChargeCapture(GatewaysInterface $gateway)
@@ -80,7 +86,7 @@ class GatewaysTest extends TestCase
             true //parameter that defines capture
         );
 
-        echo "\n Card charge and capture response:";
+        echo "\n\n\n Card charge and capture response:";
         var_dump($response);
         $this->assertIsArray($response);
         $this->assertTrue($response['success']);
@@ -101,7 +107,7 @@ class GatewaysTest extends TestCase
             $userData['user_paid']
         );
 
-        echo "\n Card capture response:";
+        echo "\n\n\n Card capture response:";
         var_dump($response);
         $this->assertIsArray($response);
         $this->assertTrue($response['success']);
