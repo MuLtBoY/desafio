@@ -35,11 +35,11 @@ class GatewaysTest extends TestCase
 
         echo "\n Card create response:";
         var_dump($response);
-        $this->assertEquals(is_array($response), true);
+        $this->assertIsArray($response);
         $this->assertTrue($response['success']);
-		$this->assertInternalType('string', $response['card_token']);
-		$this->assertInternalType('string', $response['card_type']);
-		$this->assertInternalType('string', $response['gateway_flag']);
+		$this->assertIsString('string', $response['card_token']);
+		$this->assertIsString('string', $response['card_type']);
+		$this->assertIsString('string', $response['gateway_flag']);
         echo "\n Card create " . $gateway::$gatewayFlag . " success";
     }
 
@@ -58,11 +58,11 @@ class GatewaysTest extends TestCase
 
         echo "\n Card charge response:";
         var_dump($response);
-        $this->assertEquals(is_array($response), true);
+        $this->assertIsArray($response);
         $this->assertTrue($response['success']);
-		$this->assertInternalType('string', $response['transaction_id']);
-		$this->assertInternalType('string', $response['status']);
-		$this->assertInternalType('string', $response['gateway_flag']);
+		$this->assertIsString('string', $response['transaction_id']);
+		$this->assertIsString('string', $response['status']);
+		$this->assertIsString('string', $response['gateway_flag']);
         echo "\n Card charge " . $gateway::$gatewayFlag . " success";
     }
 
@@ -82,11 +82,11 @@ class GatewaysTest extends TestCase
 
         echo "\n Card charge and capture response:";
         var_dump($response);
-        $this->assertEquals(is_array($response), true);
+        $this->assertIsArray($response);
         $this->assertTrue($response['success']);
-		$this->assertInternalType('string', $response['transaction_id']);
-		$this->assertInternalType('string', $response['status']);
-		$this->assertInternalType('string', $response['gateway_flag']);
+		$this->assertIsString('string', $response['transaction_id']);
+		$this->assertIsString('string', $response['status']);
+		$this->assertIsString('string', $response['gateway_flag']);
         echo "\n Card charge and capture " . $gateway::$gatewayFlag . " success";
     }
 
@@ -103,11 +103,11 @@ class GatewaysTest extends TestCase
 
         echo "\n Card capture response:";
         var_dump($response);
-        $this->assertEquals(is_array($response), true);
+        $this->assertIsArray($response);
         $this->assertTrue($response['success']);
-		$this->assertInternalType('string', $response['transaction_id']);
-		$this->assertInternalType('string', $response['status']);
-		$this->assertInternalType('string', $response['gateway_flag']);
+		$this->assertIsString('string', $response['transaction_id']);
+		$this->assertIsString('string', $response['status']);
+		$this->assertIsString('string', $response['gateway_flag']);
         echo "\n Card capture " . $gateway::$gatewayFlag . " success";
     }
 
