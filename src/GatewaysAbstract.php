@@ -50,17 +50,17 @@ abstract class GatewaysAbstract
         );
 
         if (preg_match($re['visa'], $num)) {
-            return 'VISA';
+            return 'visa';
         } else if (preg_match($re['mastercard'], $num)) {
-            return 'MASTERCARD';
+            return 'mastercard';
         } else if (preg_match($re['amex'], $num)) {
-            return 'AMERICAN EXPRESS';
+            return 'amex';
         } else if (preg_match($re['discover'], $num)) {
-            return 'DISCOVER';
+            return 'discover';
         } else if (preg_match($re['dinersclub'], $num)) {
-            return 'DINERS CLUB';
+            return 'dinersclub';
         } else if (preg_match($re['jcb'], $num)) {
-            return 'JCB';
+            return 'jcb';
         } else {
             return 'Unknown';
         }
@@ -91,7 +91,7 @@ abstract class GatewaysAbstract
      */
     public function gatewayResponse(bool $success, array $middleParamns): array
     {
-        return ['success' => $success] + $middleParamns + ['gateway_flag' => $this->gatewayFlag];
+        return ['success' => $success] + $middleParamns + ['gateway_flag' => self::$gatewayFlag];
     }
 
     /**

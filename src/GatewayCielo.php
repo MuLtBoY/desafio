@@ -76,15 +76,15 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
             $this->merchantId    =   GatewayConfig::getByKey('merchant_id', self::$gatewayFlag);
             $this->merchantKey   =   GatewayConfig::getByKey('merchant_key', self::$gatewayFlag);
             if(!$this->merchantId || !$this->merchantKey)
-                throw new Exception('Auth gateway ' . $this->gatewayFlag . ' fail');
+                throw new Exception('Auth gateway ' . self::$gatewayFlag . ' fail');
 
             $merchant = new Merchant($this->merchantId->value, $this->merchantKey->value);
             if(!$merchant)
-                throw new Exception('Auth gateway ' . $this->gatewayFlag . ' fail');
+                throw new Exception('Auth gateway ' . self::$gatewayFlag . ' fail');
 
             $this->cieloEcommerce = new CieloEcommerce($merchant, $this->environment);
             if(!$this->cieloEcommerce)
-                throw new Exception('Auth gateway ' . $this->gatewayFlag . ' fail');
+                throw new Exception('Auth gateway ' . self::$gatewayFlag . ' fail');
 
         } catch (Throwable $th) {
             $success = false;
@@ -112,6 +112,10 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
         try
         {
             $cardType = $this->detectCardType($cardNumber);
+            $cardType = $cardType == "mastercard" ? 'master' : $cardType;
+
+            if($expirationYear / 100 < 1)
+                $expirationYear += 2000;
 
             $card = new CreditCard();
             $card->setCustomerName($holderName);
@@ -151,10 +155,10 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
      *
      * @return Array       ['success', 'transaction_id', 'status', 'gateway_flag']
      */
-    public function cardCharge(float $amount, string $cardType, string $cardToken, string $cvv, bool $capture = true): array
+    public function cardCharge(float $amount, string $cardType, string $cardToken, string $cvv, bool $capture = false): array
     {
         $this->auth();
-        $transactionId = null;
+        $transactionId = $captureStatus = null;
         $chargeStatus  = self::PAYMENT_VOIDED;
 
         try
@@ -181,8 +185,8 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
                 $captureStatus  =   $this->getStatusString($captureStatus);
             }
 
-            if($chargeStatus != self::CODE_AUTHORIZED || ($captureStatus != self::CODE_CONFIRMED  && $capture == true))
-                throw new Exception('Charge or capture payment card gateway ' . $this->gatewayFlag . ' fail');
+            if($chargeStatus != self::CODE_AUTHORIZED || ($captureStatus != self::PAYMENT_CONFIRMED  && $capture == true))
+                throw new Exception('Charge or capture payment card gateway ' . self::$gatewayFlag . ' fail');
             else
                 $success = true;
 
@@ -220,7 +224,9 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
             $captureStatus  =   $this->getStatusString($captureStatus);
 
             if($captureStatus != self::PAYMENT_CONFIRMED)
-                throw new Exception('Capture payment card gateway ' . $this->gatewayFlag . ' fail');
+                throw new Exception('Capture payment card gateway ' . self::$gatewayFlag . ' fail');
+            else
+                $success = true;
 
         } catch (Throwable $th) {
             $success = false;

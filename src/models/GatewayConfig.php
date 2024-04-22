@@ -34,6 +34,6 @@ class GatewayConfig extends Model
      */
     public static function getByKey(string $key, string $gatewayFlag)
     {
-        return self::whereKey($key)->whereGatewayFlag($gatewayFlag)->firstOrFail();
+        return self::where('key', $key)->whereGatewayFlag($gatewayFlag)->firstOrFail();
     }
 }
