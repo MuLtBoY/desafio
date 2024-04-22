@@ -14,7 +14,7 @@ class ServiceProvider extends Provider
 
         // Load gateway seeds to main project
         $this->publishes([
-            __DIR__.'/database/seeders' => database_path('seeds')
+            __DIR__.'/database/seeders' => public_path('vendor/multboy/desafio/src/database/seeds')
         ]);
     }
 }
