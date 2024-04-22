@@ -30,7 +30,7 @@ interface GatewaysInterface
      * @param Float         $amount         Float that represents amount for the transaction.
      * @param String        $cardType       String that represents card brand.
      * @param String        $cardToken      String that represents card tokenized on gateway valt.
-     * @param String        $cvc            String that represents security number cvc.
+     * @param String        $cvv            String that represents security number cvv.
      * @param Boolean       $capture        Boolean that represents config to capture on charge.
      *
      * @return Array       ['success', 'transaction_id', 'status', 'gateway_flag']

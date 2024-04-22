@@ -100,12 +100,12 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
      * @param String        $cardNumber         String that represents the number card.
      * @param String        $expirationMonth    String that represents the month of expiration date.
      * @param String        $expirationYear     String that represents the year of expiration date.
-     * @param String        $cvc                String that represents security number cvc.
+     * @param String        $cvv                String that represents security number cvv.
      * @param String        $holderName         String that represents the name of holder card.
      *
      * @return Array       ['success', 'card_token', 'card_type', 'gateway_flag']
      */
-    public function cardCreate(string $cardNumber, string $expirationMonth, string $expirationYear, string $cvc, string $holderName): array
+    public function cardCreate(string $cardNumber, string $expirationMonth, string $expirationYear, string $cvv, string $holderName): array
     {
         $this->auth();
 
@@ -150,7 +150,7 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
      * @param Float         $amount         Float that represents amount for the transaction.
      * @param String        $cardType       String that represents card brand.
      * @param String        $cardToken      String that represents card tokenized on gateway valt.
-     * @param String        $cvc            String that represents security number cvc.
+     * @param String        $cvv            String that represents security number cvv.
      * @param Boolean       $capture        Boolean that represents config to capture on charge.
      *
      * @return Array       ['success', 'transaction_id', 'status', 'gateway_flag']
