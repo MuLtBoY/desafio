@@ -25,7 +25,12 @@ php artisan migrate
 use multboy\desafio\GatewaysResolve;
 
 $resolver = new GatewaysResolve();
-$current = $test->resolveCurrent('gateway_cielo', true); //true represents devMode (sandbox) to test
+
+//update gateway settings
+$resolver->updateGatewayConfig($resolver::GATEWAY_CIELO, 'merchant_id', '93fa44b4-fb61-476e-8cab-8950efed518e');
+$resolver->updateGatewayConfig($resolver::GATEWAY_CIELO, 'merchant_key', 'RHNRVSJCXMNPOTKGOKMSOZLZJQXCQJVAMGDBVYDP');
+
+$current = $resolver->resolveCurrent('gateway_cielo', true); //true represents devMode (sandbox) to test
 
 $current->cardCreate('5171407457820511', '12', '30', '123', 'Teste Holder'); //tokenize card
 $current->cardCharge(11, 'master', '00555af3-34a1-4e03-acb1-b02443b26a19', '123'); //creates card authorized payment
