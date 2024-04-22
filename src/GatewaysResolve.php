@@ -48,7 +48,7 @@ class GatewaysResolve
             switch($currentGateway)
             {
                 case self::GATEWAY_CIELO:
-                    return new GatewayCielo(self::GATEWAY_CIELO, self::$token, self::$devMode);
+                    return new GatewayCielo(self::GATEWAY_CIELO, self::$devMode, self::$token);
                 default:
                     throw new Exception('Invalid gateway. Try it: ' . implode(', ',(new ReflectionClass(__CLASS__))->getConstants()));
             }

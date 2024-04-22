@@ -47,7 +47,7 @@ class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
      * 
      * @return void
      */
-    public function __construct(string $gatewayFlag, bool $devMode, string $token)
+    public function __construct(string $gatewayFlag, bool $devMode, string $token = null)
     {
         try
         {

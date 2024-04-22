@@ -10,7 +10,7 @@ abstract class GatewaysAbstract
     /**
      * Flag gateway name
      */
-    protected $gatewayFlag;
+    protected static $gatewayFlag;
 
     /**
      * Payment status code
@@ -89,7 +89,7 @@ abstract class GatewaysAbstract
      * 
      * @return Array ['success', ..., 'gateway_flag']
      */
-    protected function gatewayResponse(bool $success, array $middleParamns): array
+    public function gatewayResponse(bool $success, array $middleParamns): array
     {
         return ['success' => $success] + $middleParamns + ['gateway_flag' => $this->gatewayFlag];
     }

@@ -11,5 +11,10 @@ class ServiceProvider extends Provider
     {
         // Load gateway migrations to main project
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
+        // Load gateway seeds to main project
+        $this->publishes([
+            __DIR__.'/database/seeds' => database_path('seeds')
+        ]);
     }
 }

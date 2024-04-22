@@ -1,5 +1,7 @@
 <?php
 
+namespace multboy\desafio\models;
+
 use \Illuminate\Database\Eloquent\Model as Eloquent;
 
 class GatewayConfig extends Eloquent
