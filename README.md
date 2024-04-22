@@ -44,3 +44,7 @@ Expiration month: 12
 Expiration year: 2030 or 30
 Security code: 123
 Holder name: Teste Holder
+
+5º This package has phpunit unit tests
+
+Run `./vendor/bin/phpunit vendor/multboy/desafio/src/tests/unit/GatewaysTest.php` to execute this tests.
