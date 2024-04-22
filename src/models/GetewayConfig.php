@@ -1,8 +1,10 @@
 <?php
 
-use \Illuminate\Database\Eloquent\Model as Eloquent;
+namespace multboy\desafio\models;
 
-class GatewayConfig extends Eloquent
+use \Illuminate\Database\Eloquent\Model;
+
+class GatewayConfig extends Model
 {
     /**
 	 * The database table used on this model.
@@ -32,6 +34,6 @@ class GatewayConfig extends Eloquent
      */
     public static function getByKey(string $key, string $gatewayFlag)
     {
-        return self::whereKey($key)->firstOrFail();
+        return self::whereKey($key)->whereGatewayFlag($gatewayFlag)->firstOrFail();
     }
 }

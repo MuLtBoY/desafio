@@ -3,7 +3,6 @@
 namespace multboy\desafio;
 
 use Exception;
-use GatewayConfig;
 
 use Ramsey\Uuid\Uuid;
 use Cielo\API30\Merchant;
@@ -13,6 +12,7 @@ use Cielo\API30\Ecommerce\CreditCard;
 use Cielo\API30\Ecommerce\Environment;
 use Cielo\API30\Ecommerce\CieloEcommerce;
 
+use multboy\desafio\models\GatewayConfig;
 
 class GatewayCielo extends GatewaysAbstract implements GatewaysInterface
 {
